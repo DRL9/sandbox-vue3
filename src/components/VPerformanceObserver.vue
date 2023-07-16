@@ -7,35 +7,35 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted } from "@vue/runtime-core";
+import { onMounted, onUnmounted } from 'vue'
 export default {
   setup() {
     const clickHandler = (type) => {
-      if (type === "load") {
-        let img = new Image();
-        img.src = "http://dummyimage.com/200x100/02adea&text=Hello";
-        return;
+      if (type === 'load') {
+        let img = new Image()
+        img.src = 'http://dummyimage.com/200x100/02adea&text=Hello'
+        return
       }
-      if (type === "addElement") {
-        document.body.append(document.createElement("img"));
-        return;
+      if (type === 'addElement') {
+        document.body.append(document.createElement('img'))
+        return
       }
-      performance.mark("start");
-    };
+      performance.mark('start')
+    }
     const observer = new PerformanceObserver((list) => {
       list.getEntries().forEach((entry) => {
-        console.log(entry);
-      });
-    });
+        console.log(entry)
+      })
+    })
     onMounted(() => {
       observer.observe({
-        entryTypes: ["mark", "resource", "paint", "element", "navigation"],
-      });
-    });
+        entryTypes: ['mark', 'resource', 'paint', 'element', 'navigation']
+      })
+    })
     onUnmounted(() => {
-      observer.disconnect();
-    });
-    return { clickHandler };
-  },
-};
+      observer.disconnect()
+    })
+    return { clickHandler }
+  }
+}
 </script>

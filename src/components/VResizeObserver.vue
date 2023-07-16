@@ -19,63 +19,62 @@
 </template>
 
 <script>
-import { ref } from "@vue/reactivity";
-import { onMounted, onUnmounted } from "@vue/runtime-core";
+import { ref, onMounted, onUnmounted } from 'vue'
 export default {
   setup() {
-    const refBox = ref();
+    const refBox = ref()
     const style = ref({
-      width: "100px",
-      borderWidth: "1px",
-      left: "0px",
-      padding: "0px",
-      transform: "scale(1)",
-    });
-    const histories = ref([]);
+      width: '100px',
+      borderWidth: '1px',
+      left: '0px',
+      padding: '0px',
+      transform: 'scale(1)'
+    })
+    const histories = ref([])
     const observer = new ResizeObserver((entries) => {
-      console.log("from observer");
+      console.log('from observer')
       entries.forEach((entry) => {
         histories.value.push(
           `width: ${entry.contentRect.width},
            left: ${entry.contentRect.left},
            blockSize: ${entry.borderBoxSize[0].blockSize}
           `
-        );
-      });
-    });
+        )
+      })
+    })
     onMounted(() => {
       observer.observe(refBox.value, {
-        box: "border-box",
-      });
-    });
+        box: 'border-box'
+      })
+    })
     onUnmounted(() => {
-      observer.disconnect();
-    });
+      observer.disconnect()
+    })
 
-    let scale = 1;
+    let scale = 1
     const clickHandler = (type) => {
-      if (type === "scale") {
-        scale += 0.1;
-        style.value.transform = `scale(${scale})`;
-        return;
-      } else if (type === "prove") {
+      if (type === 'scale') {
+        scale += 0.1
+        style.value.transform = `scale(${scale})`
+        return
+      } else if (type === 'prove') {
         setTimeout(() => {
-          console.log("from set time out");
-        }, 0);
-        refBox.value.style.width = "20px";
-        console.log(refBox.value.getBoundingClientRect());
-        return;
+          console.log('from set time out')
+        }, 0)
+        refBox.value.style.width = '20px'
+        console.log(refBox.value.getBoundingClientRect())
+        return
       }
-      style.value[type] = parseInt(style.value[type]) + 1 + "px";
-    };
+      style.value[type] = parseInt(style.value[type]) + 1 + 'px'
+    }
     return {
       refBox,
       style,
       histories,
-      clickHandler,
-    };
-  },
-};
+      clickHandler
+    }
+  }
+}
 </script>
 
 <style scoped>
